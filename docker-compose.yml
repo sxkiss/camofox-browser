@@ -4,17 +4,8 @@ services:
     container_name: camofox-browser
     restart: unless-stopped
     network_mode: host
-    environment:
-      - NODE_ENV=production
-      - CAMOFOX_PORT=9377
-      - MAX_OLD_SPACE_SIZE=512
-      - HTTP_PROXY=http://127.0.0.1:7890
-      - HTTPS_PROXY=http://127.0.0.1:7890
-      - ALL_PROXY=socks5://127.0.0.1:7890
-      - NO_PROXY=localhost,127.0.0.1,192.168.0.0/16,10.0.0.0/8,172.16.0.0/12
-      - http_proxy=http://127.0.0.1:7890
-      - https_proxy=http://127.0.0.1:7890
-      - all_proxy=socks5://127.0.0.1:7890
+    env_file:
+      - .env
     volumes:
       - camofox-data:/app/data
     shm_size: "1g"
