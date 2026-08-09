@@ -1,0 +1,29 @@
+services:
+  camofox:
+    image: ghcr.io/sxkiss/camofox-browser:latest
+    container_name: camofox-browser
+    restart: unless-stopped
+    network_mode: host
+    environment:
+      - NODE_ENV=production
+      - CAMOFOX_PORT=9377
+      - MAX_OLD_SPACE_SIZE=512
+      - HTTP_PROXY=http://127.0.0.1:7890
+      - HTTPS_PROXY=http://127.0.0.1:7890
+      - ALL_PROXY=socks5://127.0.0.1:7890
+      - NO_PROXY=localhost,127.0.0.1,192.168.0.0/16,10.0.0.0/8,172.16.0.0/12
+      - http_proxy=http://127.0.0.1:7890
+      - https_proxy=http://127.0.0.1:7890
+      - all_proxy=socks5://127.0.0.1:7890
+    volumes:
+      - camofox-data:/app/data
+    shm_size: "1g"
+    healthcheck:
+      test: ["CMD", "curl", "-sf", "http://localhost:9377/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+
+volumes:
+  camofox-data:
