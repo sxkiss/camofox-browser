@@ -1,6 +1,6 @@
 services:
   camofox:
-    image: ghcr.io/sxkiss/camofox-browser:latest
+    image: ${CAMOFOX_IMAGE:-sxkiss/camofox-browser:latest}
     container_name: camofox-browser
     restart: unless-stopped
     network_mode: host
